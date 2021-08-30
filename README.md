@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React Movie
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app is based on a [tutorial](https://github.com/weibenfalk/react-rmdb-v3-starter-files) and has some new features added as well as the source code is slightly different.
 
 ## Available Scripts
 
