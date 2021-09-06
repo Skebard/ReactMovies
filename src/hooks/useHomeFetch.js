@@ -14,6 +14,7 @@ export const useHomeFetch = () => {
     const [state, setState] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
 
     console.log("Search: ");
     console.log(searchTerm);
@@ -29,6 +30,7 @@ export const useHomeFetch = () => {
                 results:
                     page > 1 ? [...prev.results, ...movies.results] : [...movies.results]
             }));
+            console.log('fetched');
 
             setLoading(false);
         }catch(error){
@@ -36,9 +38,23 @@ export const useHomeFetch = () => {
         }
     }
 
+//initial and search
     useEffect(() => {
-        fetchMovies(1);
-    }, [])
+        setState(initialState);
+        fetchMovies(1, searchTerm);
+    }, [searchTerm])
 
-    return {state, loading, error, setSearchTerm }
+    //Load more
+    useEffect(() => {
+        console.log("Effect ");
+        if(!isLoadingMore){
+            return;
+        }
+        console.log("Fetch movies");
+        fetchMovies(state.page + 1, searchTerm);
+        console.log("loading false");
+        setIsLoadingMore(false);
+    }, [isLoadingMore, searchTerm, state.page])
+
+    return {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };
 };
